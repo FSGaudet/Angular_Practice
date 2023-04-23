@@ -1,0 +1,84 @@
+<div class='card'>
+    <div class='card-header'>
+       {{pageTitle}}
+    </div>
+    <div class='card-body'>
+        <div class='row'>
+            <div class='col-md-2'>Filter by:</div>
+            <div class='col-md-4'>
+                <input type='text' 
+                    [(ngModel)]='listFilter'/>
+                    <!-- 
+                    2 way street variable, mostly text. 
+                    When you change the text it  change the variablein the class
+                    
+                    -->
+                    
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-md-6'>
+                <h4>Filtered by: {{listFilter}} </h4>
+                <!-- 
+                Interpolation, where you can {{ write code here in string }}
+                
+                -->
+            </div>
+        </div>
+        <div class='table-responsive'>
+            <table class='table' *ngIf='goods.length'>
+                <thead>
+                    <tr>
+                        <th>
+                            <button class='btn btn-primary'
+                                    (click)='toggleImage()'><!-- BIND EVENT -->
+                                    <!-- Interpolation with tenary -->
+                               {{imageVisible?'Vanish':'Manifest'}} Goods
+                            </button>
+                        </th>
+                        <th>Good</th>
+                        <th>Code</th>
+                        <th>Available</th>
+                        <th>Price</th>
+                        <th>5 Star Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let good of filteredGoods'><!-- HTML FOR LOOP USING NG -->
+                        <td>
+                            <!-- CONDITIONING --><img *ngIf='imageVisible'
+                                [src]='good.imageUrl'
+                                [title]='good.goodName'
+                                [style.width.px]='imageWidth'
+                                [style.margin.px]='imageMargin'>
+                        </td>
+                        <td>{{ good.goodName }}</td>
+                        <!-- PIPES -->
+                        <!-- CUSTOM PIPING customPipe:param2:param3 (PARAM 1 = the variable to pipe)-->
+                        <td>{{ good.goodCode | lowercase | convertToSpaces:'-'}}</td><!-- CUSTOM PIPING -->
+                        <td>{{ good.releaseDate }}</td>
+                        <td>{{ good.price | currency:'CAD':'symbol':'1.2-2'}}</td>
+                        <td>
+                            <!-- Start of child component -->
+                            <pm-star 
+                            [rating]='good.starRating'
+                            (ratingClicked)='onRatingClicked($event)'>
+                            <!-- 
+                                Value in child = value in parent
+                                This is to send a value to the child as the initialisation                            
+                            -->
+                            <!-- 
+                                For communication from the child
+                                outputVariable from child = function from parent 
+                                (outputVariable)='parentFunction($event)'
+                            -->
+                            
+                            </pm-star>
+                            <!-- End of child component -->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
