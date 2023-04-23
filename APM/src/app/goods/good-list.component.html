@@ -52,7 +52,12 @@
                                 [style.width.px]='imageWidth'
                                 [style.margin.px]='imageMargin'>
                         </td>
-                        <td>{{ good.goodName }}</td>
+                        <td>
+                            <a [routerLink]="['/goods', good.goodId]"
+                            >
+                                {{ good.goodName }}
+                            </a>
+                        </td>
                         <!-- PIPES -->
                         <!-- CUSTOM PIPING customPipe:param2:param3 (PARAM 1 = the variable to pipe)-->
                         <td>{{ good.goodCode | lowercase | convertToSpaces:'-'}}</td><!-- CUSTOM PIPING -->

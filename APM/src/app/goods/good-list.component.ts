@@ -70,7 +70,7 @@ export class GoodListComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe()
+    this.sub.unsubscribe();
   }
 
   onRatingClicked(message: string): void {
